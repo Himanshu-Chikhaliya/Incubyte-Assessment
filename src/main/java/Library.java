@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -69,5 +70,24 @@ public class Library {
         if (flag) {
             throw new Exception("This book is not borrowed");
         }
+    }
+
+    public ArrayList<Book> viewBook() throws Exception {
+        ArrayList<Book> availableBook = new ArrayList<>();
+        for (Map.Entry<String,Book> i: allBook.entrySet()) {
+            if(!i.getValue().isBorrowed){
+                availableBook.add(i.getValue());
+            }
+        }
+        if(availableBook.size() == 0){
+            throw new Exception("No one book is available");
+        }else{
+            for(Book i : availableBook){
+                System.out.println("{ISBN: " + i.ISBN + "} {title: "+ i.title + "} {author: "+ i.author +"} {Publication Year" + i.publicationYear +"}");
+            }
+        }
+
+        availableBook.sort((a,b) -> (b.ISBN.compareTo(a.ISBN)));
+        return availableBook;
     }
 }

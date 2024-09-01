@@ -142,4 +142,10 @@ public class LibraryTest {
         assertIterableEquals(availableList,library.viewBook());
     }
 
+    @Test
+    void noOneBookIsAvailable(){
+        Exception ex = assertThrows(Exception.class, () -> library.viewBook());
+        assertEquals("No one book is available", ex.getMessage());
+    }
+
 }
