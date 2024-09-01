@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Library {
 
@@ -30,5 +31,23 @@ public class Library {
             throw new Exception("A book has already added");
         }
         this.allBook.put(book.ISBN, book);
+    }
+
+
+    public void borrowBook(User user,String ISBN) throws Exception {
+        this.allUser.put(user.ID, user);
+        boolean flag = true;
+        if (allBook.containsKey(ISBN)) {
+            for (Map.Entry<String, Book> i : allBook.entrySet()) {
+                if ((Objects.equals(i.getValue().ISBN, ISBN)) && (!i.getValue().isBorrowed)) {
+                    i.getValue().isBorrowed = true;
+                    flag = false;
+                    break;
+                }
+            }
+        }
+        if (flag) {
+            throw new Exception("Book not found");
+        }
     }
 }
