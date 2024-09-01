@@ -16,4 +16,17 @@ public class Book {
         this.isBorrowed = false;
     }
 
+    public boolean isValid(){
+        if(this.ISBN == null || this.ISBN.equals("")){
+            return false;
+        } else if (this.title == null || this.title.equals("")) {
+            return false;
+        } else if (this.author == null || this.author.equals("")) {
+            return false;
+        } else if (this.publicationYear == null ) {
+            return false;
+        }
+
+        return true;
+    }
 }
