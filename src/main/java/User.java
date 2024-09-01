@@ -7,4 +7,11 @@ public class User {
         this.ID = ID;
         this.name = name;
     }
+
+    public boolean isValid(){
+        if(this.name == null || this.name.equals("")){
+            return false;
+        }
+        return true;
+    }
 }
