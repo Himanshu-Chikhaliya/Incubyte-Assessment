@@ -50,4 +50,24 @@ public class Library {
             throw new Exception("Book not found");
         }
     }
+
+
+    public void returnBook(User user, String ISBN) throws Exception {
+        if (!allUser.containsKey(user.ID)) {
+            throw new Exception("User not Found");
+        }
+        boolean flag = true;
+        if (allBook.containsKey(ISBN)) {
+            for (Map.Entry<String, Book> i : allBook.entrySet()) {
+                if ((Objects.equals(i.getValue().ISBN, ISBN)) && (i.getValue().isBorrowed)) {
+                    i.getValue().isBorrowed = false;
+                    flag = false;
+                    break;
+                }
+            }
+        }
+        if (flag) {
+            throw new Exception("This book is not borrowed");
+        }
+    }
 }
