@@ -11,4 +11,12 @@ public class UserTest {
         assertNotEquals("shyam",user.name);
     }
 
+    @Test
+    void userDetailsWithNullAndEmpty(){
+        User user1 = new User(123,"");
+        assertFalse(user1.isValid());
+
+        User user2 = new User(456,"Himanshu");
+        assertTrue(user2.isValid());
+    }
 }
