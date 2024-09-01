@@ -26,6 +26,9 @@ public class BookTest {
 
         Book book4 = new Book("9780684839349","Gitanjali","Rabindranath Tagore",null);
         assertFalse(book4.isValid());
+
+        Book book5 = new Book("9780684839349","Gitanjali","Rabindranath Tagore", Year.of(1910));
+        assertTrue(book5.isValid());
     }
 
 }
