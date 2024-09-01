@@ -69,4 +69,39 @@ public class LibraryTest {
         assertEquals("Book not found", ex.getMessage());
     }
 
+
+
+    /* --------------------- Test cases for return Book  -------------------- */
+    @Test
+    void checkUserIsValidate() throws Exception {
+        User user = new User(123,"Himanshu");
+        Book book = new Book("9781981876037","Vevishal","zaverchand meghani",Year.of(1955));
+        User user2 = new User(456,"Shyam");
+        library.addBook(book);
+        library.borrowBook(user, book.ISBN);
+
+        Exception ex2 = assertThrows(Exception.class, () -> library.returnBook(user2,book.ISBN));
+        assertEquals("User not Found", ex2.getMessage());
+    }
+
+    @Test
+    void bookIsNotBorrow() throws Exception {
+        User user = new User(123,"Himanshu");
+        Book book = new Book("9781981876037","Vevishal","zaverchand meghani",Year.of(1955));
+        library.addBook(book);
+        library.borrowBook(user,book.ISBN);
+
+        Exception ex = assertThrows(Exception.class, () -> library.returnBook(user,"1234567891011"));
+        assertEquals("This book is not borrowed", ex.getMessage());
+    }
+
+    @Test
+    void returnBook() throws Exception {
+        User user = new User(123,"Himanshu");
+        Book book = new Book("9781981876037","Vevishal","zaverchand meghani",Year.of(1955));
+        library.addBook(book);
+        library.borrowBook(user,book.ISBN);
+
+        assertDoesNotThrow(() ->  library.returnBook(user,"9781981876037"));
+    }
 }
