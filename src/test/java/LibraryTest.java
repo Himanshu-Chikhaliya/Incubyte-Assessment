@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.time.Year;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -104,4 +105,41 @@ public class LibraryTest {
 
         assertDoesNotThrow(() ->  library.returnBook(user,"9781981876037"));
     }
+
+
+
+    /* ---------------- Test cases for view available books  ------------------ */
+    @Test
+    void viewAvailableBooks() throws Exception {
+        Book book = new Book("9781981876037","Vevishal","zaverchand meghani",Year.of(1955));
+        Book book2 = new Book("9780684839349","Gitanjali","Rabindranath Tagore", Year.of(1910));
+        library.addBook(book);
+        library.addBook(book2);
+
+        // for comparison purpose
+        ArrayList<Book> availableList = new ArrayList<>();
+        availableList.add(book);
+        availableList.add(book2);
+        availableList.sort((x,y) -> (y.ISBN.compareTo(x.ISBN)));
+
+        assertIterableEquals(availableList,library.viewBook());
+    }
+
+    @Test
+    void viewAvailableBooksWithBorrowSomeBook() throws Exception {
+        User user = new User(123,"Himanshu");
+        Book book = new Book("9781981876037","Vevishal","zaverchand meghani",Year.of(1955));
+        Book book2 = new Book("9780684839349","Gitanjali","Rabindranath Tagore", Year.of(1910));
+        library.addBook(book);
+        library.addBook(book2);
+        library.borrowBook(user,book.ISBN);
+
+        /* ----- for comparison purpose ----- */
+        ArrayList<Book> availableList = new ArrayList<>();
+        availableList.add(book2);
+        availableList.sort((x,y) -> (y.ISBN.compareTo(x.ISBN)));
+
+        assertIterableEquals(availableList,library.viewBook());
+    }
+
 }
