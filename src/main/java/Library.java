@@ -21,4 +21,14 @@ public class Library {
             throw new Exception("Library name must be more than 3 letters");
         }
     }
+
+    public void addBook(Book book) throws Exception{
+        if(!book.isValid()){
+            throw new Exception("Please fill all the details");
+        }
+        if(allBook.containsKey(book.ISBN)){
+            throw new Exception("A book has already added");
+        }
+        this.allBook.put(book.ISBN, book);
+    }
 }
