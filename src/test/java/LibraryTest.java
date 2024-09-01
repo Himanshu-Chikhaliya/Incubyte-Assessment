@@ -47,4 +47,26 @@ public class LibraryTest {
         assertEquals("A book has already added",ex2.getMessage());
     }
 
+
+
+    /* --------------------- Test cases for borrow Book  -------------------- */
+    @Test
+    void allDetailsAreCorrect() throws Exception {
+        User user = new User(123,"Himanshu");
+        Book book = new Book("9781981876037","Vevishal","zaverchand meghani",Year.of(1955));
+        library.addBook(book);
+
+        assertDoesNotThrow(() -> library.borrowBook(user,"9781981876037"));
+    }
+
+    @Test
+    void bookIsAlreadyBorrow() throws Exception {
+        User user = new User(123,"Himanshu");
+        Book book = new Book("9781981876037","Vevishal","zaverchand meghani",Year.of(1955));
+        library.addBook(book);
+
+        Exception ex = assertThrows(Exception.class, () -> library.borrowBook(user,"1234567891011"));
+        assertEquals("Book not found", ex.getMessage());
+    }
+
 }
